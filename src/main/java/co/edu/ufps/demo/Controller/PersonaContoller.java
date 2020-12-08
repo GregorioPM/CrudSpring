@@ -1,5 +1,6 @@
 package co.edu.ufps.demo.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,7 @@ import co.edu.ufps.demo.service.PersonaService;
 @Controller
 public class PersonaContoller {
 	
-	
+	@Autowired
 	private PersonaService personaService;
 	
 	@RequestMapping("/")
@@ -30,12 +31,13 @@ public class PersonaContoller {
 		return "save";
 	}
 	
-	@PostMapping
+	@PostMapping("/save")
 	public String save(Persona persona, Model model) {
 		personaService.save(persona);
 		return "redirect:/";
 	}
 	
+	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable Long id, Model model) {
 		personaService.delete(id);
 		return "redirect:/";
